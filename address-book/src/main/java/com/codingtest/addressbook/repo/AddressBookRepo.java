@@ -1,8 +1,21 @@
+/**
+ * 
+ */
 package com.codingtest.addressbook.repo;
 
-import org.springframework.stereotype.Repository;
+import java.io.IOException;
+import java.util.stream.Stream;
 
-@Repository
+import com.codingtest.addressbook.model.Person;
+
+/**
+ * @author ROHAN-PC
+ *
+ */
+
 public interface AddressBookRepo {
+	
+	public Stream<Person> loadAddressBook() throws IOException;
 
 }
+ 
