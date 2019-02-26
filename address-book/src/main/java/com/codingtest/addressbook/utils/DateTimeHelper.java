@@ -23,6 +23,14 @@ public class DateTimeHelper {
 		return LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
 	}
 	
-	
+	/**
+	 * 
+	 * @param startInclusive
+	 * @param endExclusive
+	 * @return
+	 */
+	public static long differenceInDays(LocalDate startInclusive,LocalDate endExclusive) {
+		return Duration.between(startInclusive.atStartOfDay(), endExclusive.atStartOfDay()).toDays();
+	}
 
 }

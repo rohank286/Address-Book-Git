@@ -3,18 +3,21 @@
  */
 package com.codingtest.addressbook.service;
 
-import org.springframework.stereotype.Service;
+import java.io.IOException;
 
+import com.codingtest.addressbook.exceptions.NoContentException;
+import com.codingtest.addressbook.exceptions.ValidationException;
 import com.codingtest.addressbook.model.Person;
 
 /**
  * @author ROHAN-PC
  *
  */
-@Service
+
 public interface AddressBookService {
-	
-	 public long noOfPersonsByGender(String gender);
-	 public Person oldestPersonInAddressBook();
-	 public long noOfDaysDifference(String firstname,String otherPersonFirstname);
+
+	 public long noOfPersonsByGender(String gender) throws IOException;
+	 public Person oldestPersonInAddressBook() throws ValidationException, NoContentException;
+	 public long noOfDaysDifference(String firstname,String otherPersonFirstname) throws ValidationException; 
+
 }

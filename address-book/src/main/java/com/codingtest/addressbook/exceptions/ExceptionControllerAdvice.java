@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.MethodNotAllowedException;
 
 import com.codingtest.addressbook.model.ErrorCodes;
 import com.codingtest.addressbook.model.Status;
@@ -24,9 +25,22 @@ import com.codingtest.addressbook.model.Status;
 @ControllerAdvice
 public class ExceptionControllerAdvice {
 	
-
 	
-	 /**
+		
+	   /**
+	    * 
+	    * @param validationException
+	    * @return
+	    */
+	   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	   @ResponseBody
+	   @ExceptionHandler({ValidationException.class})
+	   public Status handelValidationException(ValidationException validationException) {
+		   return new Status(validationException.getErrorCode(),validationException.getErrorMessage());
+	   }
+	   
+	   
+	   /**
 	    * 
 	    * @param ioException
 	    * @return
@@ -40,8 +54,35 @@ public class ExceptionControllerAdvice {
 	   }
 	   
 	   
-	
-	 /**
+	   
+	   /**
+	    * 
+	    * @param exception
+	    * @return
+	    */
+	   @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	   @ResponseBody
+	   @ExceptionHandler({MethodNotAllowedException.class})
+	   public Status methodTypeInvalid(MethodNotAllowedException exception) {
+
+		   return new Status(HttpStatus.METHOD_NOT_ALLOWED.value(),exception.getMessage());
+	   }
+	   
+	   
+	   /**
+	    * 
+	    * @param exception
+	    * @return
+	    */
+	   @ResponseStatus(HttpStatus.BAD_REQUEST)
+	   @ResponseBody
+	   @ExceptionHandler({BadRequestException.class})
+	   public Status handleBadRequest(BadRequestException exception) {
+
+		   return new Status(HttpStatus.BAD_REQUEST.value(),exception.getMessage());
+	   }
+	   
+	   /**
 	    * 
 	    * @param exception
 	    * @return
@@ -53,4 +94,8 @@ public class ExceptionControllerAdvice {
 
 		   return new Status(exception.getErrorCode(),exception.getErrorMessage());
 	   }
+	   
+	 
+	
+
 }
